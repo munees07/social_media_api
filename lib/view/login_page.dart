@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:social_media/models/auth_model.dart';
+import 'package:social_media/services/auth_service.dart';
 import 'package:social_media/view/homepage.dart';
+import 'package:social_media/view/signup_page.dart';
 
 class LoginPage extends StatelessWidget {
-  final String email;
-  final String password;
-  LoginPage({super.key, required this.email, required this.password});
+  LoginPage({super.key});
 
   final _formkey = GlobalKey<FormState>();
   final emailController = TextEditingController();
@@ -54,17 +55,37 @@ class LoginPage extends StatelessWidget {
                         }
                       },
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButton(
+                            onPressed: () {},
+                            child: const Text('forgot password?')),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => SignupScreen(),
+                              ));
+                            },
+                            child: const Text('Sign up'))
+                      ],
+                    ),
                     const Gap(40),
                     ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formkey.currentState!.validate()) {
-                            //Login
-                          }
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomePage(),
+                            final status = await AuthService().login(AuthModel(
+                                email: emailController.text,
+                                password: passwordController.text));
+                            if (status == 'success') {
+                              Navigator.of(context)
+                                  .pushReplacement(MaterialPageRoute(
+                                builder: (context) => const HomePage(),
                               ));
+                            } else {
+                              return;
+                            }
+                          }
                         },
                         child: const Text('Login'))
                   ],

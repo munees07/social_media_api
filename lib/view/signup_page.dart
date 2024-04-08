@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:social_media/models/auth_model.dart';
 import 'package:social_media/services/auth_service.dart';
 import 'package:social_media/view/login_page.dart';
 
@@ -66,21 +67,20 @@ class SignupScreen extends StatelessWidget {
                             return null;
                           }
                         }),
+                        
                     const Gap(40),
                     ElevatedButton(
                         onPressed: () {
                           if (_formkey.currentState!.validate()) {
                             AuthService().signUp(
-                                email: emailController.text,
+                                AuthModel(email: emailController.text,
                                 password: passwordController.text,
-                                username: usernameController.text);
+                                username: usernameController.text));
                           }
                           Navigator.push(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => LoginPage(
-                                  email: emailController.text,
-                                  password: passwordController.text,
                                 ),
                               ));
                         },

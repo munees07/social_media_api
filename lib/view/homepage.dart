@@ -5,10 +5,15 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text('HomeScreen'),
+    return Scaffold(
+        body: Container(
+      height: double.infinity,
+      width: double.infinity,
+      decoration: const BoxDecoration(color: Colors.black12),
+      child: const Text(
+        'HomeScreen',
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
       ),
-    );
+    ));
   }
 }
