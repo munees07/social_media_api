@@ -66,6 +66,7 @@ class AuthService {
       if (response.statusCode == 200) {
         log('password changed');
       } else {
+        // ignore: avoid_print
         print('password change faile${response.statusCode}');
       }
     } catch (e) {

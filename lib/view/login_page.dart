@@ -1,7 +1,10 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:social_media/models/auth_model.dart';
 import 'package:social_media/services/auth_service.dart';
+import 'package:social_media/view/chagepassword.dart';
 import 'package:social_media/view/homepage.dart';
 import 'package:social_media/view/signup_page.dart';
 
@@ -59,7 +62,11 @@ class LoginPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => PasswordChangeScreen(),
+                              ));
+                            },
                             child: const Text('forgot password?')),
                         TextButton(
                             onPressed: () {
