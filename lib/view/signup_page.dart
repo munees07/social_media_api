@@ -67,22 +67,21 @@ class SignupScreen extends StatelessWidget {
                             return null;
                           }
                         }),
-                        
                     const Gap(40),
                     ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (_formkey.currentState!.validate()) {
-                            AuthService().signUp(
-                                AuthModel(email: emailController.text,
+                            AuthService().signUp(AuthModel(
+                                email: emailController.text,
                                 password: passwordController.text,
                                 username: usernameController.text));
+
+                            await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginPage(),
+                                ));
                           }
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => LoginPage(
-                                ),
-                              ));
                         },
                         child: const Text('Sign Up'))
                   ],

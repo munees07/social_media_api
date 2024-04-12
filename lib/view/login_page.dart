@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:social_media/models/auth_model.dart';
 import 'package:social_media/services/auth_service.dart';
+import 'package:social_media/view/bottom_nav.dart';
 import 'package:social_media/view/chagepassword.dart';
-import 'package:social_media/view/homepage.dart';
 import 'package:social_media/view/signup_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -87,7 +87,7 @@ class LoginPage extends StatelessWidget {
                             if (status == 'success') {
                               Navigator.of(context)
                                   .pushReplacement(MaterialPageRoute(
-                                builder: (context) => const HomePage(),
+                                builder: (context) => const Bottomnav(),
                               ));
                             } else {
                               return;

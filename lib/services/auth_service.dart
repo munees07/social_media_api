@@ -60,7 +60,7 @@ class AuthService {
           data: jsonEncode(data),
           options: Options(headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer$token'
+            'Authorization': 'Bearer $token'
           }));
 
       if (response.statusCode == 200) {
@@ -71,6 +71,34 @@ class AuthService {
       }
     } catch (e) {
       throw Exception(e);
+    }
+  }
+
+  Future<UserModel?> getLoggedUser() async {
+    try {
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      final token = pref.getString('Token');
+      final response = await dio.get(
+  'https://socialmedia-api-v1.onrender.com/auth/loggeduser',
+  options: Options(
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token',
+    },
+  ),
+);
+
+print(response.data); // Print the response data here
+
+if (response.statusCode == 200) {
+  final jsonData = UserModel.fromJson(response.data);
+  return jsonData;
+} else {
+  throw Exception('Failed to get logged-in user: ${response.statusCode}');
+}
+
+    } catch (e) {
+      throw Exception('Something went wrong: $e');
     }
   }
 }

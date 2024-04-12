@@ -10,9 +10,11 @@ class HomePage extends StatelessWidget {
       height: double.infinity,
       width: double.infinity,
       decoration: const BoxDecoration(color: Colors.black12),
-      child: const Text(
-        'HomeScreen',
-        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+      child: const Center(
+        child: Text(
+          'HomeScreen',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+        ),
       ),
     ));
   }
