@@ -5,7 +5,6 @@ import 'package:gap/gap.dart';
 import 'package:social_media/models/auth_model.dart';
 import 'package:social_media/services/auth_service.dart';
 import 'package:social_media/view/bottom_nav.dart';
-import 'package:social_media/view/chagepassword.dart';
 import 'package:social_media/view/signup_page.dart';
 
 class LoginPage extends StatelessWidget {
@@ -58,24 +57,15 @@ class LoginPage extends StatelessWidget {
                         }
                       },
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => PasswordChangeScreen(),
-                              ));
-                            },
-                            child: const Text('forgot password?')),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => SignupScreen(),
-                              ));
-                            },
-                            child: const Text('Sign up'))
-                      ],
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => SignupScreen(),
+                            ));
+                          },
+                          child: const Text('Sign up')),
                     ),
                     const Gap(40),
                     ElevatedButton(

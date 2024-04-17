@@ -60,30 +60,3 @@ class UserModel {
     );
   }
 }
-
-// class UserModel {
-//   String? username;
-//   String? email;
-
-//   UserModel({
-//     this.username,
-//     this.email,
-//   });
-
-//   // factory UserModel.fromJson(Map<String, dynamic> json) {
-//   //   return UserModel(
-//   //     username: json['username'],
-//   //     email: json['email'],
-//   //   );
-//   // }
-//   factory UserModel.fromJson(Map<String, dynamic> json) {
-//   return UserModel(
-//     username: json['user']['username'], // Make sure to access the 'username' field from the 'user' object
-//     email: json['user']['email'], // Similarly, access other fields like email
-//     // Other fields...
-//   );
-// }
-
-// }
-
-

@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'dart:convert';
 import 'dart:developer';
 
@@ -16,6 +18,7 @@ class AuthService {
 
       if (response.statusCode == 201) {
         log('account created');
+        print(response.data);
 
         final jsonData = UserModel.fromJson(response.data);
         return jsonData;
@@ -66,7 +69,6 @@ class AuthService {
       if (response.statusCode == 200) {
         log('password changed');
       } else {
-        // ignore: avoid_print
         print('password change faile${response.statusCode}');
       }
     } catch (e) {
@@ -79,24 +81,23 @@ class AuthService {
       SharedPreferences pref = await SharedPreferences.getInstance();
       final token = pref.getString('Token');
       final response = await dio.get(
-  'https://socialmedia-api-v1.onrender.com/auth/loggeduser',
-  options: Options(
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    },
-  ),
-);
+        'https://socialmedia-api-v1.onrender.com/auth/loggeduser',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
 
-print(response.data); // Print the response data here
+      print(response.data);
 
-if (response.statusCode == 200) {
-  final jsonData = UserModel.fromJson(response.data);
-  return jsonData;
-} else {
-  throw Exception('Failed to get logged-in user: ${response.statusCode}');
-}
-
+      if (response.statusCode == 200) {
+        final jsonData = UserModel.fromJson(response.data);
+        return jsonData;
+      } else {
+        throw Exception('Failed to get logged-in user: ${response.statusCode}');
+      }
     } catch (e) {
       throw Exception('Something went wrong: $e');
     }

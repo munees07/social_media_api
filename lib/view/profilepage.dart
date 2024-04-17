@@ -1,11 +1,15 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:social_media/models/auth_model.dart';
 
 import 'package:social_media/services/auth_service.dart';
+import 'package:social_media/view/chagepassword.dart';
+import 'package:social_media/view/settings.dart';
 
 class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key? key}) : super(key: key);
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +17,7 @@ class ProfilePage extends StatelessWidget {
       future: AuthService().getLoggedUser(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
@@ -59,18 +63,20 @@ class ProfilePage extends StatelessWidget {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
+                            const Gap(20),
                             SizedBox(
                                 height: 100,
                                 child: ClipRRect(
                                     borderRadius: BorderRadius.circular(45),
-                                    child: CircleAvatar(
+                                    child: const CircleAvatar(
+                                      minRadius: 40,
                                       backgroundColor: Colors.blueAccent,
                                     ))),
                             const SizedBox(width: 40),
                             Column(
                               children: [
                                 blacktext(
-                                    user.followers!.length.toString(), 20),
+                                    user.following!.length.toString(), 20),
                                 greytext('Followers')
                               ],
                             ),
@@ -78,7 +84,7 @@ class ProfilePage extends StatelessWidget {
                             Column(
                               children: [
                                 blacktext(
-                                    user.following!.length.toString(), 20),
+                                    user.followers!.length.toString(), 20),
                                 greytext('Following')
                               ],
                             ),
@@ -93,7 +99,7 @@ class ProfilePage extends StatelessWidget {
             );
           } else {
             print('User data is null');
-            return Text('User data is null');
+            return const Text('User data is null');
           }
         }
       },
@@ -105,22 +111,22 @@ Drawer drawer() {
   var icons = [
     Icons.edit,
     Icons.password_outlined,
-    Icons.attach_money,
-    CupertinoIcons.gift,
-    Icons.star,
-    CupertinoIcons.question_circle,
-    Icons.share,
-    Icons.settings
+    Icons.settings,
+    // CupertinoIcons.gift,
+    // Icons.star,
+    // CupertinoIcons.question_circle,
+    // Icons.share,
+    // Icons.settings
   ];
   var titletxt = [
     'Edit profile',
     'Change PassWord',
-    'Transaction History',
-    'Refer a friend',
-    'wishlist',
-    'Help',
-    'Share my profile',
-    'Settings'
+    'Settings',
+    // 'Refer a friend',
+    // 'wishlist',
+    // 'Help',
+    // 'Share my profile',
+    // 'Settings'
   ];
 
   return Drawer(
@@ -145,6 +151,9 @@ Drawer drawer() {
                   icons[index],
                   color: Colors.black,
                 ),
+                onTap: () {
+                  navigateToPage(context, index);
+                },
               );
             },
           ),
@@ -152,6 +161,30 @@ Drawer drawer() {
       ],
     ),
   );
+}
+
+void navigateToPage(BuildContext context, int index) {
+  switch (index) {
+    case 0:
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const SettingsPage()),
+      );
+      break;
+    case 1:
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => PasswordChangeScreen()),
+      );
+      break;
+    case 2:
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const SettingsPage()),
+      );
+      break;
+    // Add cases for other pages here
+  }
 }
 
 Text blacktext(String txt, double? size) {

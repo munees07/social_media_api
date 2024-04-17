@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:social_media/view/create_post.dart';
+import 'package:social_media/view/follow_page.dart';
 import 'package:social_media/view/profilepage.dart';
 import 'package:social_media/view/homepage.dart';
 
@@ -10,7 +12,12 @@ class Bottomnav extends StatefulWidget {
 }
 
 class _BottomnavState extends State<Bottomnav> {
-  List<Widget> pages = [const HomePage(), const ProfilePage()];
+  List<Widget> pages = [
+    const HomePage(),
+    const PostPage(),
+    const FollowPage(),
+    const ProfilePage(),
+  ];
   int currentIndex = 0;
   void onTap(int index) {
     setState(() {
@@ -34,12 +41,11 @@ class _BottomnavState extends State<Bottomnav> {
                 label: 'home',
                 icon: Icon(Icons.home_outlined),
                 activeIcon: Icon(Icons.home)),
-            // BottomNavigationBarItem(label: 'Explore', icon: Icon(Icons.search)),
-            // BottomNavigationBarItem(
-            //     label: 'Courses',
-            //     icon: Icon(Icons.chrome_reader_mode_outlined),
+            BottomNavigationBarItem(label: 'post', icon: Icon(Icons.add)),
+            BottomNavigationBarItem(
+                label: 'Explore', icon: Icon(Icons.person_add_alt_1)),
             //     activeIcon: Icon(Icons.chrome_reader_mode)),
-            BottomNavigationBarItem(label: 'Profile', icon: Icon(Icons.person))
+            BottomNavigationBarItem(label: 'Profile', icon: Icon(Icons.person)),
           ]),
     );
   }

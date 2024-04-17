@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:social_media/controller/user_provider.dart';
 import 'package:social_media/view/login_page.dart';
 
 void main() {
@@ -10,7 +12,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(debugShowCheckedModeBanner: false,
-      home: LoginPage());
+    return ChangeNotifierProvider(
+      create: (context) => UserProvider(),
+      child: MaterialApp(debugShowCheckedModeBanner: false, home: LoginPage()),
+    );
   }
 }
