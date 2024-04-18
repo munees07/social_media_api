@@ -25,6 +25,7 @@ class PasswordChangeScreen extends StatelessWidget {
                   ElevatedButton(
                       onPressed: () {
                         AuthService().changePassword(passwordController.text);
+                        Navigator.pop(context);
                       },
                       child: const Text('Change password'))
                 ],

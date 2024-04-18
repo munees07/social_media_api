@@ -4,6 +4,7 @@ import 'package:social_media/services/user_services.dart';
 
 class UserProvider extends ChangeNotifier {
   List<UsersModel> users = [];
+  List<String> followingUsers = [];
 
   Future<void> fetchUsers(BuildContext context) async {
     try {
@@ -18,5 +19,21 @@ class UserProvider extends ChangeNotifier {
       );
     }
     notifyListeners();
+  }
+
+  void addFollowing(String userId) {
+    if (!followingUsers.contains(userId)) {
+      followingUsers.add(userId);
+    }
+    notifyListeners();
+  }
+
+  void removeFollowing(String userId) {
+    followingUsers.remove(userId);
+    notifyListeners();
+  }
+
+  bool isFollowingUser(String userId) {
+    return followingUsers.contains(userId);
   }
 }

@@ -2,7 +2,6 @@
 
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:social_media/models/auth_model.dart';
 import 'package:dio/dio.dart';
@@ -18,7 +17,6 @@ class AuthService {
 
       if (response.statusCode == 201) {
         log('account created');
-        print(response.data);
 
         final jsonData = UserModel.fromJson(response.data);
         return jsonData;
@@ -89,8 +87,6 @@ class AuthService {
           },
         ),
       );
-
-      print(response.data);
 
       if (response.statusCode == 200) {
         final jsonData = UserModel.fromJson(response.data);

@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:social_media/models/usersmodel.dart';
@@ -41,7 +40,6 @@ class UserService {
           ));
 
       if (response.statusCode == 200) {
-        print('${response.data}');
         log('followed');
       } else {
         log('unable to follow');
@@ -72,7 +70,6 @@ class UserService {
           ));
 
       if (response.statusCode == 200) {
-        print('${response.data}');
         log('Unfollowed');
       } else {
         log('unable to unfollow');

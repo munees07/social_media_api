@@ -32,15 +32,23 @@ class FollowPage extends StatelessWidget {
                           itemCount: provider.users.length,
                           itemBuilder: (context, index) {
                             final UsersModel data = provider.users[index];
+                            final bool isFollowing =
+                                provider.isFollowingUser(data.id!);
                             return Padding(
                               padding: const EdgeInsets.all(8),
                               child: Card(
                                 child: ListTile(
                                   trailing: ElevatedButton(
                                       onPressed: () {
-                                        UserService().followUser(data.id!);
+                                        if (isFollowing) {
+                                          UserService().unFollowUser(data.id!);
+                                          provider.removeFollowing(data.id!);
+                                        } else {
+                                          UserService().followUser(data.id!);
+                                          provider.addFollowing(data.id!);
+                                        }
                                       },
-                                      child: const Text('Follow')),
+                                      child:  Text(isFollowing?'Unfollow': 'Follow')),
                                   title: Text(data.username!.toString()),
                                 ),
                               ),
@@ -51,6 +59,7 @@ class FollowPage extends StatelessWidget {
               }
             }));
   }
+
   Future<void> fetchAllUserData(BuildContext context) async {
     final provider = Provider.of<UserProvider>(context, listen: false);
     await provider.fetchUsers(context);

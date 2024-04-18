@@ -30,7 +30,7 @@ class _BottomnavState extends State<Bottomnav> {
     return Scaffold(
       body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.shifting,
+          type: BottomNavigationBarType.fixed,
           currentIndex: currentIndex,
           onTap: onTap,
           selectedItemColor: Colors.black87,
@@ -44,7 +44,6 @@ class _BottomnavState extends State<Bottomnav> {
             BottomNavigationBarItem(label: 'post', icon: Icon(Icons.add)),
             BottomNavigationBarItem(
                 label: 'Explore', icon: Icon(Icons.person_add_alt_1)),
-            //     activeIcon: Icon(Icons.chrome_reader_mode)),
             BottomNavigationBarItem(label: 'Profile', icon: Icon(Icons.person)),
           ]),
     );

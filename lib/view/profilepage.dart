@@ -22,10 +22,8 @@ class ProfilePage extends StatelessWidget {
           return Text('Error: ${snapshot.error}');
         } else {
           final UserModel? user = snapshot.data;
-          print('Snapshot data: $user');
 
           if (user != null) {
-            print('User: ${user.username}');
             return Scaffold(
               backgroundColor: Colors.white,
               appBar: AppBar(
@@ -183,7 +181,6 @@ void navigateToPage(BuildContext context, int index) {
         MaterialPageRoute(builder: (context) => const SettingsPage()),
       );
       break;
-    // Add cases for other pages here
   }
 }
 
