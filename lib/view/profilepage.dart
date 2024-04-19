@@ -17,9 +17,10 @@ class ProfilePage extends StatelessWidget {
     return FutureBuilder<UserModel?>(
       future: AuthService().getLoggedUser(context),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
+        // if (snapshot.connectionState == ConnectionState.waiting) {
+        //   return const Center(child: CircularProgressIndicator());
+        // } else
+        if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
         } else {
           final UserModel? user = snapshot.data;
@@ -32,8 +33,10 @@ class ProfilePage extends StatelessWidget {
                 elevation: 0,
                 backgroundColor: Colors.white,
                 title: Text(
-                  user.username ?? 'Unknown User',
-                  style: const TextStyle(fontSize: 22),
+                  // user.username ?? 'Unknown User',
+                  'Profile',
+                  style: const TextStyle(
+                      fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 actions: [
                   Builder(
@@ -97,8 +100,7 @@ class ProfilePage extends StatelessWidget {
               ),
             );
           } else {
-            print('User data is null');
-            return const Text('User data is null');
+            return const Text('');
           }
         }
       },
