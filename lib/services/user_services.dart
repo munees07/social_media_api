@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:social_media/models/usersmodel.dart';
 import 'package:social_media/services/auth_service.dart';
@@ -19,8 +20,8 @@ class UserService {
     }
   }
 
-  Future<void> followUser(String id) async {
-    final loggeduser = await AuthService().getLoggedUser();
+  Future<void> followUser(BuildContext context, String id) async {
+    final loggeduser = await AuthService().getLoggedUser(context);
 
     final loggedId = loggeduser!.id;
 
@@ -49,8 +50,8 @@ class UserService {
     }
   }
 
-  Future<void> unFollowUser(String id) async {
-    final loggeduser = await AuthService().getLoggedUser();
+  Future<void> unFollowUser(BuildContext context, String id) async {
+    final loggeduser = await AuthService().getLoggedUser(context);
 
     final loggedId = loggeduser!.id;
 

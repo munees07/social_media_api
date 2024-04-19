@@ -10,6 +10,10 @@ class FollowPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          titleTextStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          title: Text('Explore Users'),
+        ),
         body: FutureBuilder(
             future: fetchAllUserData(context),
             builder: (context, snapshot) {
@@ -39,16 +43,30 @@ class FollowPage extends StatelessWidget {
                               child: Card(
                                 child: ListTile(
                                   trailing: ElevatedButton(
+                                      style: ButtonStyle(
+                                          foregroundColor:
+                                              MaterialStatePropertyAll(
+                                                  isFollowing
+                                                      ? Colors.black
+                                                      : Colors.white),
+                                          backgroundColor:
+                                              MaterialStatePropertyAll(
+                                                  isFollowing
+                                                      ? Colors.white
+                                                      : Colors.blue)),
                                       onPressed: () {
                                         if (isFollowing) {
-                                          UserService().unFollowUser(data.id!);
+                                          UserService()
+                                              .unFollowUser(context, data.id!);
                                           provider.removeFollowing(data.id!);
                                         } else {
-                                          UserService().followUser(data.id!);
+                                          UserService()
+                                              .followUser(context, data.id!);
                                           provider.addFollowing(data.id!);
                                         }
                                       },
-                                      child:  Text(isFollowing?'Unfollow': 'Follow')),
+                                      child: Text(
+                                          isFollowing ? 'Unfollow' : 'Follow')),
                                   title: Text(data.username!.toString()),
                                 ),
                               ),

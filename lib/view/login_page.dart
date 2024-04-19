@@ -71,7 +71,7 @@ class LoginPage extends StatelessWidget {
                     ElevatedButton(
                         onPressed: () async {
                           if (_formkey.currentState!.validate()) {
-                            final status = await AuthService().login(AuthModel(
+                            final status = await AuthService().login(context,AuthModel(
                                 email: emailController.text,
                                 password: passwordController.text));
                             if (status == 'success') {

@@ -6,6 +6,7 @@ import 'package:social_media/models/auth_model.dart';
 
 import 'package:social_media/services/auth_service.dart';
 import 'package:social_media/view/chagepassword.dart';
+import 'package:social_media/view/login_page.dart';
 import 'package:social_media/view/settings.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -14,7 +15,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<UserModel?>(
-      future: AuthService().getLoggedUser(),
+      future: AuthService().getLoggedUser(context),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -105,12 +106,38 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
+void logoutDialogueBox(BuildContext context, int index) {
+  showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      content: const Text('Are you Sure?'),
+      actions: [
+        TextButton(
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginPage(),
+                  ),
+                  (route) => false);
+            },
+            child: const Text('OK')),
+        TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Cancel'))
+      ],
+    ),
+  );
+}
+
 Drawer drawer() {
   var icons = [
     Icons.edit,
     Icons.password_outlined,
     Icons.settings,
-    // CupertinoIcons.gift,
+    Icons.logout,
     // Icons.star,
     // CupertinoIcons.question_circle,
     // Icons.share,
@@ -120,7 +147,7 @@ Drawer drawer() {
     'Edit profile',
     'Change PassWord',
     'Settings',
-    // 'Refer a friend',
+    'Log out',
     // 'wishlist',
     // 'Help',
     // 'Share my profile',
@@ -180,6 +207,9 @@ void navigateToPage(BuildContext context, int index) {
         context,
         MaterialPageRoute(builder: (context) => const SettingsPage()),
       );
+      break;
+    case 3:
+      logoutDialogueBox(context, index);
       break;
   }
 }

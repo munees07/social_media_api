@@ -23,9 +23,11 @@ class PasswordChangeScreen extends StatelessWidget {
                   ),
                   const Gap(30),
                   ElevatedButton(
-                      onPressed: () {
-                        AuthService().changePassword(passwordController.text);
-                        Navigator.pop(context);
+                      onPressed: () async {
+                        await AuthService()
+                            .changePassword(context, passwordController.text);
+                        passwordController.clear();
+                        // Navigator.pop(context);
                       },
                       child: const Text('Change password'))
                 ],

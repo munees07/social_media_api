@@ -1,14 +1,16 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, use_build_context_synchronously
 
 import 'dart:convert';
 import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:social_media/models/auth_model.dart';
 import 'package:dio/dio.dart';
+import 'package:social_media/utils/snackbar_helper.dart';
 
 class AuthService {
   Dio dio = Dio();
-  Future<UserModel?> signUp(AuthModel authModel) async {
+  Future<AuthModel?> signUp(BuildContext context, AuthModel authModel) async {
     try {
       final response = await dio.post(
           'https://socialmedia-api-v1.onrender.com/auth/register',
@@ -18,16 +20,18 @@ class AuthService {
       if (response.statusCode == 201) {
         log('account created');
 
-        final jsonData = UserModel.fromJson(response.data);
+        successMessage(context, message: 'Account Created Successfully');
+        final jsonData = AuthModel.fromJson(response.data);
         return jsonData;
       }
     } catch (e) {
+      errorMessage(context, message: 'Unable to create Account');
       throw Exception(e);
     }
     return null;
   }
 
-  Future<String> login(AuthModel authModel) async {
+  Future<String> login(BuildContext context, AuthModel authModel) async {
     try {
       final response = await dio.post(
           'https://socialmedia-api-v1.onrender.com/auth/login',
@@ -35,6 +39,7 @@ class AuthService {
           data: authModel.toJson());
 
       if (response.statusCode == 200) {
+        successMessage(context, message: 'Login successfully');
         log('login success');
         final jsonData = response.data as Map<String, dynamic>;
         String token = jsonData['token'];
@@ -44,14 +49,16 @@ class AuthService {
         pref.setString('Status', status);
         return status;
       } else {
+        errorMessage(context, message: 'User not Found');
         throw Exception('user not found ${response.statusCode}');
       }
     } catch (e) {
+      errorMessage(context, message: 'Unable to login something went wrong');
       throw Exception('Something went wrong $e');
     }
   }
 
-  Future<void> changePassword(String password) async {
+  Future<void> changePassword(BuildContext context, String password) async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     final token = pref.getString('Token');
     final data = {'password': password};
@@ -65,16 +72,18 @@ class AuthService {
           }));
 
       if (response.statusCode == 200) {
+        successMessage(context, message: 'Password Changed');
         log('password changed');
       } else {
-        print('password change faile${response.statusCode}');
+        errorMessage(context, message: 'Unable to change password');
+        print('password change failed${response.statusCode}');
       }
     } catch (e) {
       throw Exception(e);
     }
   }
 
-  Future<UserModel?> getLoggedUser() async {
+  Future<UserModel?> getLoggedUser(BuildContext context) async {
     try {
       SharedPreferences pref = await SharedPreferences.getInstance();
       final token = pref.getString('Token');
@@ -92,9 +101,11 @@ class AuthService {
         final jsonData = UserModel.fromJson(response.data);
         return jsonData;
       } else {
+        errorMessage(context, message: 'failed to Login');
         throw Exception('Failed to get logged-in user: ${response.statusCode}');
       }
     } catch (e) {
+      errorMessage(context, message: 'something went wrong');
       throw Exception('Something went wrong: $e');
     }
   }

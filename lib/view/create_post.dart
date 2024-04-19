@@ -34,7 +34,9 @@ class PostPage extends StatelessWidget {
                     const InputDecoration(labelText: 'Enter a Description'),
               ),
               const Gap(20),
-              ElevatedButton(onPressed: () {}, child: const Text('Post'))
+              ElevatedButton(onPressed: () {
+                
+              }, child: const Text('Post'))
             ],
           ),
         ),

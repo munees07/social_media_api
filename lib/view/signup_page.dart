@@ -71,10 +71,12 @@ class SignupScreen extends StatelessWidget {
                     ElevatedButton(
                         onPressed: () async {
                           if (_formkey.currentState!.validate()) {
-                            AuthService().signUp(AuthModel(
-                                email: emailController.text,
-                                password: passwordController.text,
-                                username: usernameController.text));
+                            AuthService().signUp(
+                                context,
+                                AuthModel(
+                                    email: emailController.text,
+                                    password: passwordController.text,
+                                    username: usernameController.text));
 
                             await Navigator.push(
                                 context,
