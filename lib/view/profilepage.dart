@@ -32,10 +32,10 @@ class ProfilePage extends StatelessWidget {
                 iconTheme: const IconThemeData(color: Colors.black),
                 elevation: 0,
                 backgroundColor: Colors.white,
-                title: Text(
+                title: const Text(
                   // user.username ?? 'Unknown User',
                   'Profile',
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontSize: 22, fontWeight: FontWeight.bold),
                 ),
                 actions: [

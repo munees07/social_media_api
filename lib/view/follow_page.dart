@@ -46,37 +46,52 @@ class FollowPage extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 5),
-                        child: Card(
-                          child: ListTile(
-                            trailing: ElevatedButton(
-                                style: ButtonStyle(
-                                    shape: MaterialStatePropertyAll(
-                                        RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10))),
-                                    padding: const MaterialStatePropertyAll(
-                                        EdgeInsets.symmetric(horizontal: 10)),
-                                    foregroundColor: MaterialStatePropertyAll(
-                                        isFollowing
-                                            ? Colors.black
-                                            : Colors.white),
-                                    backgroundColor: MaterialStatePropertyAll(
-                                        isFollowing
-                                            ? Colors.white
-                                            : Colors.blue)),
-                                onPressed: () {
-                                  if (isFollowing) {
-                                    UserService()
-                                        .unFollowUser(context, data.id!);
-                                    provider.removeFollowing(data.id!);
-                                  } else {
-                                    UserService().followUser(context, data.id!);
-                                    provider.addFollowing(data.id!);
-                                  }
-                                },
-                                child:
-                                    Text(isFollowing ? 'Unfollow' : 'Follow')),
-                            title: Text(data.username!.toString()),
+                        child: SizedBox(
+                          height: 80,
+                          child: Card(
+                            color: Colors.white70,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: ListTile(
+                                leading: const CircleAvatar(
+                                  radius: 40,
+                                ),
+                                trailing: ElevatedButton(
+                                    style: ButtonStyle(
+                                        shape: MaterialStatePropertyAll(
+                                            RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10))),
+                                        padding: const MaterialStatePropertyAll(
+                                            EdgeInsets.symmetric(
+                                                horizontal: 10)),
+                                        foregroundColor:
+                                            MaterialStatePropertyAll(isFollowing
+                                                ? Colors.black
+                                                : Colors.white),
+                                        backgroundColor:
+                                            MaterialStatePropertyAll(isFollowing
+                                                ? Colors.white
+                                                : Colors.blue)),
+                                    onPressed: () {
+                                      if (isFollowing) {
+                                        UserService()
+                                            .unFollowUser(context, data.id!);
+                                        provider.removeFollowing(data.id!);
+                                      } else {
+                                        UserService()
+                                            .followUser(context, data.id!);
+                                        provider.addFollowing(data.id!);
+                                      }
+                                    },
+                                    child: Text(
+                                        isFollowing ? 'Unfollow' : 'Follow')),
+                                title: Text(
+                                  data.username!.toString(),
+                                  style: const TextStyle(fontWeight: FontWeight.w300),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       );

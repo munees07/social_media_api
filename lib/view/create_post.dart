@@ -24,7 +24,7 @@ class PostPage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)),
                     child: const Image(
-                        fit: BoxFit.contain,
+                        fit: BoxFit.fill,
                         image: NetworkImage(
                             'https://themeskills.com/wp-content/uploads/2015/07/pinned-sticky-post.png'))),
               ),
@@ -34,9 +34,7 @@ class PostPage extends StatelessWidget {
                     const InputDecoration(labelText: 'Enter a Description'),
               ),
               const Gap(20),
-              ElevatedButton(onPressed: () {
-                
-              }, child: const Text('Post'))
+              ElevatedButton(onPressed: () {}, child: const Text('Post'))
             ],
           ),
         ),
